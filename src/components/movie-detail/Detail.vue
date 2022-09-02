@@ -1,7 +1,9 @@
 <template>
   <div class="detail mt-20">
-    <ImageCover :path="imagePath" />
-    <List />
+    <div class="flex items-center justify-between gap-16 mb-14">
+      <ImageCover :path="imagePath" />
+      <List :info="detailMovie" class="flex-grow" />
+    </div>
     <Description />
   </div>
 </template>
