@@ -13,6 +13,7 @@ const routes = [
   {
     path: "/movie/:movieName",
     name: "Movie",
+    props: (route) => ({ query: route.query.q }),
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Movie.vue"),
   },
