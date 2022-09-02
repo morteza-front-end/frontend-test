@@ -40,7 +40,7 @@ export default {
       this.selectedDate = date;
     },
     filterByDate() {
-      if (this.selectedDate.length > 2) {
+      if (this.selectedDate.length > 0) {
         this.$emit("handleSelectedDate", this.selectedDate);
       } else {
         this.$emit("handleSelectedDate", null);
