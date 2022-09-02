@@ -46,7 +46,7 @@ export default {
     },
   },
   async created() {
-    await this.getMovieDetail(this.$store.getters["idSelected"]);
+    await this.getMovieDetail(this.$route.query.q);
   },
 };
 </script>
