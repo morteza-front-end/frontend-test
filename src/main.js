@@ -5,6 +5,8 @@ import store from "./store";
 import "./assets/style/index.css";
 import "./assets/tailwind.css";
 import "skeleton-screen-css";
+import VuePersianDatetimePicker from "vue-persian-datetime-picker";
+Vue.component("date-picker", VuePersianDatetimePicker);
 
 Vue.config.productionTip = false;
 
