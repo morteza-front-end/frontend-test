@@ -39,9 +39,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import env from "@/config/env";
-
 export default {
   name: "CardMovie",
   props: {
@@ -50,34 +47,25 @@ export default {
       require: true,
       default: () => {},
     },
+    list: {
+      type: Array,
+      require: true,
+      default: () => {},
+    },
   },
   data() {
     return {
-      listAllGenres: [],
       lastItem: null,
     };
   },
-  computed: {},
   watch: {
     listAllGenres() {
       this.lastItem = this.info?.genre_ids?.length - 1;
     },
   },
   methods: {
-    async getGenres() {
-      let options = {
-        api_key: "f62f750b70a8ef11dad44670cfb6aa57",
-      };
-      await axios
-        .get(env.getAllGenre, {
-          params: options,
-        })
-        .then((response) => {
-          this.listAllGenres.push(...response?.data?.genres);
-        });
-    },
     checkGenres(genre) {
-      let genres = this.listAllGenres.filter((item) => {
+      let genres = this.list.filter((item) => {
         return item.id === genre;
       });
       return genres[0]?.name;
@@ -85,9 +73,6 @@ export default {
     isShowPoint(index) {
       return index === this.lastItem;
     },
-  },
-  async created() {
-    await this.getGenres();
   },
 };
 </script>
