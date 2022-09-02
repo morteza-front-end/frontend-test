@@ -9,6 +9,7 @@
           v-for="(movie, index) in listMovies"
           :key="index"
           :info="movie"
+          :list="listAllGenres"
         />
       </div>
       <div
@@ -37,6 +38,8 @@
 
 <script>
 import CardMovie from "../movies/movie-card/index.vue";
+import axios from "axios";
+import env from "@/config/env";
 
 export default {
   name: "ListMovies",
@@ -60,10 +63,27 @@ export default {
       default: "",
     },
   },
-  computed: {
-    // isShowMovies() {
-    //   return this.listMovies?.length > 0;
-    // },
+  data() {
+    return {
+      listAllGenres: [],
+    };
+  },
+  methods: {
+    async getGenres() {
+      let options = {
+        api_key: "f62f750b70a8ef11dad44670cfb6aa57",
+      };
+      await axios
+        .get(env.getAllGenre, {
+          params: options,
+        })
+        .then((response) => {
+          this.listAllGenres.push(...response?.data?.genres);
+        });
+    },
+  },
+  async created() {
+    await this.getGenres();
   },
 };
 </script>
