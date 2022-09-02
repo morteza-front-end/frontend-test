@@ -1,35 +1,26 @@
 <template>
   <div id="app">
-    <datepicker
-      class="w-56"
-      placeholder=" "
-      v-model="model.date"
-      :minimumView="'day'"
-      :maximumView="'month'"
-      :initialView="'month'"
-      :format="DatePickerFormat"
-    ></datepicker>
+    <date-picker
+      v-model="range"
+      range
+      clearable
+      auto-submit
+      locale="en"
+      format="YYYY-MM-DD HH:mm"
+      display-format="jYYYY/jM/jD"
+    />
   </div>
 </template>
 
 <script>
-import Datepicker from "vuejs-datepicker";
-
 export default {
-  components: {
-    Datepicker,
-  },
-
   data() {
     return {
-      model: {
-        date: "",
-      },
-      DatePickerFormat: "dd/MM/yyyy",
+      range: "",
     };
   },
   watch: {
-    "model.date"(Value) {
+    range(Value) {
       if (Value) {
         this.$emit("handleFilterByDate", Value);
       }
