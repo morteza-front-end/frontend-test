@@ -4,7 +4,10 @@
   >
     <div class="flex items-center gap-3">
       <span>Search by release date:</span>
-      <Datepicker @handleFilterByDate="updateSelectedDate" />
+      <Datepicker
+        class="date-picker"
+        @handleFilterByDate="updateSelectedDate"
+      />
     </div>
     <button
       @click="filterByDate"
@@ -29,11 +32,12 @@ export default {
   },
   methods: {
     updateSelectedDate(value) {
-      let date = new Date(value);
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-      this.selectedDate = `${day}-${month}-${year}`;
+      let date = [];
+      for (let item in value) {
+        let selectedDate = value[item].split(" ");
+        date.push(selectedDate[0]);
+      }
+      this.selectedDate = date;
     },
     filterByDate() {
       if (this.selectedDate.length > 2) {
@@ -46,4 +50,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.date-picker .vpd-main > .vpd-input-group > .vpd-clear-btn {
+  left: auto !important;
+  right: 0 !important;
+}
+</style>
