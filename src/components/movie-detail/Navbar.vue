@@ -4,6 +4,7 @@
   >
     <div class="flex items-center gap-14">
       <button
+        @click="back"
         class="bg-blue-450 text-white rounded-full pl-4 pr-6 py-1 flex items-center"
       >
         <img
@@ -28,6 +29,11 @@ export default {
       type: Object,
       require: true,
       default: () => {},
+    },
+  },
+  methods: {
+    back() {
+      this.$router.push("/");
     },
   },
 };
