@@ -1,7 +1,10 @@
 <template>
   <router-link
-    :to="{ path: `/movie/${info.title}` }"
-    @click.native="handleSaveId(info.id)"
+    :to="{
+      path: `/movie/${info.title}`,
+      params: { movieName: info.title },
+      query: { q: info.id },
+    }"
     class="bg-gray-350 w-74 h-48 px-1 border border-gray-350 rounded-md grid grid-cols-2 items-center justify-center cursor-pointer"
   >
     <img
@@ -44,11 +47,6 @@ export default {
       type: Object,
       require: true,
       default: () => {},
-    },
-  },
-  methods: {
-    handleSaveId(id) {
-      this.$store.dispatch("handleUpdateIdSelected", id);
     },
   },
 };
