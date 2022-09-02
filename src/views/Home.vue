@@ -42,11 +42,20 @@ export default {
         page = 1;
       }
       this.loading = true;
-      let options = {
-        api_key: "f62f750b70a8ef11dad44670cfb6aa57",
-        page: page,
-        "release_date.gte": this.selectedDate,
-      };
+      let options;
+      if (this.selectedDate) {
+        options = {
+          api_key: "f62f750b70a8ef11dad44670cfb6aa57",
+          page: page,
+          "release_date.lte": this.selectedDate[1],
+          "release_date.gte": this.selectedDate[0],
+        };
+      } else {
+        options = {
+          api_key: "f62f750b70a8ef11dad44670cfb6aa57",
+          page: page,
+        };
+      }
       await axios
         .get(env.baseUrl + `/movie`, {
           params: options,
