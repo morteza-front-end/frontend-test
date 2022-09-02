@@ -20,18 +20,17 @@
           <img src="@/assets/images/Calendar-icon.png" alt="Calendar-icon" />
           {{ info.release_date }}
         </div>
-        <div class="flex flex-wrap gap-x-3">
-          <div class="flex items-baseline gap-1">
-            <span class="text-subTitle">Action</span>
-            <div class="w-2 h-2 rounded-full inline-block bg-gray-500"></div>
-          </div>
-          <div class="flex items-baseline gap-1">
-            <span class="text-subTitle">Action</span>
-            <div class="w-2 h-2 rounded-full inline-block bg-gray-500"></div>
-          </div>
-          <div class="flex items-baseline gap-1">
-            <span class="text-subTitle">Action</span>
-            <div class="w-2 h-2 rounded-full inline-block bg-gray-500"></div>
+        <div class="flex flex-wrap gap-x-1 pb-4">
+          <div
+            class="flex items-baseline gap-1"
+            v-for="(genre, index) in info.genre_ids"
+            :key="index"
+          >
+            <span class="text-xs">{{ checkGenres(genre) }}</span>
+            <div
+              v-show="!isShowPoint(index)"
+              class="w-2 h-2 rounded-full inline-block bg-gray-500"
+            ></div>
           </div>
         </div>
       </div>
@@ -40,6 +39,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import env from "@/config/env";
+
 export default {
   name: "CardMovie",
   props: {
@@ -48,6 +50,44 @@ export default {
       require: true,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      listAllGenres: [],
+      lastItem: null,
+    };
+  },
+  computed: {},
+  watch: {
+    listAllGenres() {
+      this.lastItem = this.info?.genre_ids?.length - 1;
+    },
+  },
+  methods: {
+    async getGenres() {
+      let options = {
+        api_key: "f62f750b70a8ef11dad44670cfb6aa57",
+      };
+      await axios
+        .get(env.getAllGenre, {
+          params: options,
+        })
+        .then((response) => {
+          this.listAllGenres.push(...response?.data?.genres);
+        });
+    },
+    checkGenres(genre) {
+      let genres = this.listAllGenres.filter((item) => {
+        return item.id === genre;
+      });
+      return genres[0]?.name;
+    },
+    isShowPoint(index) {
+      return index === this.lastItem;
+    },
+  },
+  async created() {
+    await this.getGenres();
   },
 };
 </script>
