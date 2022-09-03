@@ -68,7 +68,8 @@ export default {
       let genres = this.list.filter((item) => {
         return item.id === genre;
       });
-      return genres[0]?.name;
+      let targetGenre = genres?.shift()?.name;
+      return targetGenre;
     },
     isShowPoint(index) {
       return index === this.lastItem;
