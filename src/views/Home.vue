@@ -47,8 +47,8 @@ export default {
         options = {
           api_key: "f62f750b70a8ef11dad44670cfb6aa57",
           page: page,
-          "release_date.lte": this.selectedDate[1],
-          "release_date.gte": this.selectedDate[0],
+          "release_date.lte": this.selectedDate?.pop(),
+          "release_date.gte": this.selectedDate?.shift(),
         };
       } else {
         options = {

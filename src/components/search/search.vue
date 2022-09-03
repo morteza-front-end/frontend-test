@@ -35,7 +35,7 @@ export default {
       let date = [];
       for (let item in value) {
         let selectedDate = value[item].split(" ");
-        date.push(selectedDate[0]);
+        date.push(selectedDate?.shift());
       }
       this.selectedDate = date;
     },
